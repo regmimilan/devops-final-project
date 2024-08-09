@@ -1,38 +1,47 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* App.css */
+.app {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5; /* Facebook-like background color */
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  min-height: 100vh; /* Ensures full height of the viewport */
+}
+
+.header {
+  background-color: #3b5998; /* Facebook blue */
   color: white;
+  padding: 20px;
+  text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+.header h1 {
+  margin: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main {
+  width: 100%;
+  max-width: 600px; /* Adjust as needed */
+  padding: 20px;
+}
+
+.contributors {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+.contributors h2 {
+  margin-bottom: 10px;
+}
+
+.contributors ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.contributors li {
+  margin-bottom: 8px;
 }

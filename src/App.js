@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './App.css'; // Import CSS for styling
 
-function App() {
+const contributors = [
+  { name: 'Milan Regmi' },
+  { name: 'Sujal Shrestha' },
+  { name: 'Arun Osti' },
+  { name: 'Srijesh Khanal' },
+];
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="app">
+      {/* Header section */}
+      <header className="header">
+        <h1>Welcome to DevOps Final Project</h1>
       </header>
+
+      {/* Main content section */}
+      <main className="main">
+        <div className="contributors">
+          <h2>Contributors of This Project are:</h2>
+          <ul>
+            {contributors.map((contributor, index) => (
+              <li key={index}>{contributor.name}</li>
+            ))}
+          </ul>
+        </div>
+      </main>
     </div>
   );
-}
+};
 
 export default App;
