@@ -2,9 +2,9 @@ name: Node.js CI/CD
 
 on:
   push:
-    branches: ["docker-setup"]
+    branches: ["master"]
   pull_request:
-    branches: ["docker-setup"]
+    branches: ["master"]
 
 jobs:
   build:
@@ -50,7 +50,7 @@ jobs:
           docker push ${{ secrets.DOCKER_REGISTRY_USERNAME }}/devops-final-project-frontend:latest
 
       - name: Set up kubectl
-        uses: azure/setup-kubectl@v2
+        uses: kubernetes-actions/setup-kubectl@v1
         with:
           version: "latest"
 
@@ -60,7 +60,6 @@ jobs:
           kubectl apply -f k8s/service.yml
           kubectl apply -f k8s/configmap.yml
           kubectl apply -f k8s/hpa.yml
-          kubectl apply -f k8s/network-policy.yml
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
