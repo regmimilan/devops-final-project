@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-final-project-deployment
+  labels:
+    app: devops-final-project
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devops-final-project
+  template:
+    metadata:
+      labels:
+        app: devops-final-project
+    spec:
+      containers:
+        - name: devops-final-project-container
+          image: devops-final-project-frontend:latest # Docker image name and tag
+          ports:
+            - containerPort: 80
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: REACT_APP_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: devops-final-project-config
+                  key: REACT_APP_API_URL
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          strategy:
+            type: RollingUpdate
+            rollingUpdate:
+              maxSurge: 1
+              maxUnavailable: 1
