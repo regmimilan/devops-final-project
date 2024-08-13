@@ -35,13 +35,13 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t khanal.srijesh@gmail.com/devops-final-project-frontend:latest .
+          docker build -t SrijeshK/devops-final-project-frontend:latest .
         env:
           DOCKER_BUILDKIT: 1
 
       - name: Push Docker image
         run: |
-          docker push khanal.srijesh@gmail.com/devops-final-project-frontend:latest
+          docker push SrijeshK/devops-final-project-frontend:latest
 
       - name: Install kubectl
         run: |
