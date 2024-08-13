@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_REGISTRY_USERNAME }}/devops-final-project-frontend:latest .
+          docker build -t ${{ secrets.DOCKER_REGISTRY_USERNAME }}devops-final-project-frontend:latest .
         env:
           DOCKER_BUILDKIT: 1
 
