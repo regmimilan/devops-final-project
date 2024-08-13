@@ -60,6 +60,7 @@ jobs:
           kubectl apply -f k8s/service.yml
           kubectl apply -f k8s/configmap.yml
           kubectl apply -f k8s/hpa.yml
+          kubectl apply -f k8s/network-policy.yml
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
