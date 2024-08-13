@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: devops-final-project-container
-          image: devops-final-project-frontend:latest # Docker image name and tag
+          image: srijeshk/devops-final-project-frontend:latest
           ports:
             - containerPort: 80
           env:
@@ -46,8 +46,8 @@ spec:
             limits:
               memory: "1Gi"
               cpu: "500m"
-          strategy:
-            type: RollingUpdate
-            rollingUpdate:
-              maxSurge: 1
-              maxUnavailable: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1

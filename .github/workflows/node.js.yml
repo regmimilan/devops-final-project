@@ -10,18 +10,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js ${{ matrix.node-version }}
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "20.x"
           cache: "npm"
 
       - name: Install dependencies
@@ -51,8 +47,8 @@ jobs:
 
       - name: Install kubectl
         run: |
-          KUBECTL_VERSION=$(curl -s https://cdn.dl.k8s.io/release/stable.txt)
-          curl -LO "https://cdn.dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
+          KUBECTL_VERSION=$(curl -s https://dl.k8s.io/release/stable.txt)
+          curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
           kubectl version --client
@@ -64,6 +60,9 @@ jobs:
 
       - name: Display KUBECONFIG
         run: cat $HOME/.kube/config
+
+      - name: Test Kubernetes API Connectivity
+        run: kubectl cluster-info
 
       - name: Deploy to Kubernetes
         run: |
