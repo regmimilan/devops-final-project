@@ -2,9 +2,9 @@ name: Node.js CI/CD
 
 on:
   push:
-    branches: ["master"]
+    branches: ["docker-setup"]
   pull_request:
-    branches: ["master"]
+    branches: ["docker-setup"]
 
 jobs:
   build:
