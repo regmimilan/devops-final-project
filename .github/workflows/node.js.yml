@@ -2,9 +2,9 @@ name: Node.js CI/CD
 
 on:
   push:
-    branches: ["docker-setup"]
+    branches: ["devops-project"]
   pull_request:
-    branches: ["docker-setup"]
+    branches: ["devops-project"]
 
 jobs:
   build:
@@ -35,13 +35,19 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t SrijeshK/devops-final-project-frontend:latest .
+          docker build -t srijeshk/devops-final-project-frontend:latest .
         env:
           DOCKER_BUILDKIT: 1
 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
       - name: Push Docker image
         run: |
-          docker push SrijeshK/devops-final-project-frontend:latest
+          docker push srijeshk/devops-final-project-frontend:latest
 
       - name: Install kubectl
         run: |
