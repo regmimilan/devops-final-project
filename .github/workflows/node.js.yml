@@ -62,16 +62,12 @@ jobs:
           mkdir -p $HOME/.kube
           echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
+      - name: Display KUBECONFIG
+        run: cat $HOME/.kube/config
+
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/deployment.yml
-          kubectl apply -f k8s/service.yml
-          kubectl apply -f k8s/configmap.yml
-          kubectl apply -f k8s/hpa.yml
-
-      - name: Deploy with gh-pages
-        run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          kubectl apply -f k8s/deployment.yml --validate=false
+          kubectl apply -f k8s/service.yml --validate=false
+          kubectl apply -f k8s/configmap.yml --validate=false
+          kubectl apply -f k8s/hpa.yml --validate=false
