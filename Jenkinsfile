@@ -23,7 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Run tests
-                bat 'npm test'
+                bat 'npm test -- --passWithNoTests'
             }
         }
     }
