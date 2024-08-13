@@ -58,7 +58,9 @@ jobs:
           kubectl version --client
 
       - name: Set up KUBECONFIG
-        run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
       - name: Deploy to Kubernetes
         run: |
