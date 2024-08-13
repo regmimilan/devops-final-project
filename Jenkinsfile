@@ -4,28 +4,33 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                // Checkout code from GitHub
                 git branch: 'master', url: 'https://github.com/regmimilan/devops-final-project.git'
             }
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                // Install npm dependencies
+                bat 'npm install'
             }
         }
         stage('Build') {
             steps {
-                sh 'npm run build'
+                // Run the build script
+                bat 'npm run build'
             }
         }
         stage('Test') {
             steps {
-                sh 'npm test'
+                // Run tests
+                bat 'npm test'
             }
         }
     }
 
     post {
         always {
+            // Archive build artifacts
             archiveArtifacts artifacts: 'build/**/*', allowEmptyArchive: true
         }
         success {
@@ -36,5 +41,3 @@ pipeline {
         }
     }
 }
-
-
