@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                git 'https://github.com/username/repo.git'
+                git 'https://github.com/regmimilan/devops-final-project.git'
                 sh 'npm install'
             }
         }
