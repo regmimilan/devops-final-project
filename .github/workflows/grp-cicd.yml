@@ -58,7 +58,8 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          minikube start
+          minikube delete
+          minikube start --kubernetes-version=v1.29.0
           minikube status
           kubectl apply -f k8s/configmap.yaml --validate=false
           kubectl apply -f k8s/deployment.yaml --validate=false
