@@ -52,12 +52,6 @@ jobs:
           minikube version
           minikube start --driver=docker
 
-      - name: Set up KUBECONFIG
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-          kubectl version --client
-
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f k8s/configmap.yaml --validate=false
