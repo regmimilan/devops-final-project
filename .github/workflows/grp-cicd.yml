@@ -49,7 +49,7 @@ jobs:
         run: |
           curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
           sudo install minikube /usr/local/bin/
-          minikube start --kubernetes-version=v1.29.0 --driver=docker
+          minikube start --kubernetes-version=v1.30.0 --driver=docker
           minikube status
           kubectl config view --merge --flatten > $HOME/.kube/config
 
@@ -58,7 +58,7 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/configmap.yaml --validate=false
-          kubectl apply -f k8s/deployment.yaml --validate=false
-          kubectl apply -f k8s/service.yaml --validate=false
+          kubectl apply -f k8s/configmap.yml --validate=false
+          kubectl apply -f k8s/deployment.yml --validate=false
+          kubectl apply -f k8s/service.yml --validate=false
           kubectl get all
