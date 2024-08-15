@@ -43,7 +43,6 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker tag devops-final-project-frontend:latest srijeshk/devops-final-project-frontend:latest
           docker push srijeshk/devops-final-project-frontend:latest
 
       - name: Set up Minikube
