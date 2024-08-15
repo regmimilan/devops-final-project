@@ -1,4 +1,4 @@
-name: Node.js CI/CD
+name: grp-cicd CI/CD
 
 on:
   push:
@@ -51,6 +51,9 @@ jobs:
           sudo install minikube /usr/local/bin/
           minikube version
           minikube start --driver=docker
+
+      - name: List files in k8s directory
+        run: ls -la k8s
 
       - name: Deploy to Kubernetes
         run: |
