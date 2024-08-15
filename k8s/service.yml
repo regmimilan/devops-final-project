@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: devops-final-project-deployment
+  name: devops-final-project-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: devops-final-project
   ports:
     - protocol: TCP
-      port: 80 # Port on which the service is exposed
-      targetPort: 80 # Port on which the container is listening
-      nodePort: 30000 # If not specified, Kubernetes will automatically assign a port in the range 30000-32767.
-  #type: LoadBalancer  # Use NodePort if running on a cluster without a LoadBalancer
+      port: 5000 # External port for accessing the first container
+      targetPort: 3000 # Internal port on the first container
+      # nodePort: 30000 # If not specified, Kubernetes will automatically assign a port in the range 30000-32767.
+
+    #type: NodePort  # Use NodePort if running on a cluster without a LoadBalancer

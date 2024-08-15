@@ -3,4 +3,7 @@ kind: ConfigMap
 metadata:
   name: devops-final-project-config
 data:
-  REACT_APP_API_URL: "https://api.groupproj.com" # Example configuration value
+  # URL for the API endpoint accessible on port 5000
+  REACT_APP_API_URL: "http://api-groupproj:5000" # Service URL mapped to port 5000
+  REACT_APP_FEATURE_FLAG: "true" # Example feature flag
+  REACT_APP_ENVIRONMENT: "development" # Application environment

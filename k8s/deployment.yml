@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devops-final-project-deployment
+  name: devops-final-project
   labels:
     app: devops-final-project
 spec:
@@ -18,7 +18,7 @@ spec:
         - name: devops-final-project-container
           image: srijeshk/devops-final-project-frontend:latest
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           env:
             - name: NODE_ENV
               value: "production"
@@ -27,16 +27,26 @@ spec:
                 configMapKeyRef:
                   name: devops-final-project-config
                   key: REACT_APP_API_URL
+            - name: REACT_APP_FEATURE_FLAG
+              valueFrom:
+                configMapKeyRef:
+                  name: devops-final-project-config
+                  key: REACT_APP_FEATURE_FLAG
+            - name: REACT_APP_ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: devops-final-project-config
+                  key: REACT_APP_ENVIRONMENT
           readinessProbe:
             httpGet:
               path: /health
-              port: 80
+              port: 3000
             initialDelaySeconds: 30
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /health
-              port: 80
+              port: 3000
             initialDelaySeconds: 60
             periodSeconds: 30
           resources:

@@ -49,8 +49,8 @@ jobs:
         run: |
           curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
           sudo install minikube /usr/local/bin/
-          mkdir -p $HOME/.kube $HOME/.minikube
-          sudo chown -R $USER $HOME/.kube $HOME/.minikube
+          minikube start --kubernetes-version=v1.29.0 --driver=docker
+          minikube status
           kubectl config view --merge --flatten > $HOME/.kube/config
 
       - name: List files in k8s directory
@@ -58,9 +58,6 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          minikube delete
-          minikube start --kubernetes-version=v1.29.0
-          minikube status
           kubectl apply -f k8s/configmap.yaml --validate=false
           kubectl apply -f k8s/deployment.yaml --validate=false
           kubectl apply -f k8s/service.yaml --validate=false
