@@ -15,7 +15,7 @@ test('renders list of contributors', () => {
   expect(contributorsElement).toBeInTheDocument();
 
   // Example test for specific contributors (adjust as per your actual list)
-  const milanElement = screen.getByText(/Milan Regmi/i);
+  const milanElement = screen.getByText(/Milan Regmii/i);
   const sujalElement = screen.getByText(/Sujal Shrestha/i);
   const arunElement = screen.getByText(/Arun Wosti/i);
   const srijeshElement = screen.getByText(/Srijesh Khanal/i);
