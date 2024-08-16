@@ -5,7 +5,7 @@ import App from './App';
 
 test('renders welcome message', () => {
   render(<App />);
-  const welcomeElement = screen.getByText(/Welcome to DevOps Final Project/i);
+  const welcomeElement = screen.getByText(/Welcome to DevOps Final Project1/i);
   expect(welcomeElement).toBeInTheDocument();
 });
 
