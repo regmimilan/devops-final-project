@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css'; // Import CSS for styling
 
 const contributors = [
-  { name: 'Milan Regmi' },
+  { name: 'Milan Regmii' },
   { name: 'Sujal Shrestha' },
   { name: 'Arun Osti' },
   { name: 'Srijesh Khanal' },
