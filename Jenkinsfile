@@ -5,29 +5,40 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from GitHub
-                git branch: 'master', url: 'https://github.com/regmimilan/devops-final-project.git'
+                git branch: 'devops-project', url: 'https://github.com/regmimilan/devops-final-project.git'
+            }
+        }
+        stage('Set up Node.js') {
+            steps {
+                // Set up Node.js and install dependencies
+                script {
+                    // Set up Node.js version 20.x
+                    sh 'nvm install 20'
+                    sh 'nvm use 20'
+                }
             }
         }
         stage('Install Dependencies') {
             steps {
                 // Install npm dependencies
-                bat 'npm install'
+                sh 'npm ci'
             }
         }
         stage('Build') {
             steps {
                 // Run the build script
-                bat 'npm run build'
+                sh 'npm run build --if-present'
             }
         }
         stage('Test') {
             steps {
                 // Run tests
-                bat 'npm test -- --passWithNoTests'
+                sh 'npm test'
             }
         }
         stage('Build Docker Image') {
             steps {
+                // Build Docker image
                 script {
                     docker.build('srijeshk/devops-final-project-frontend:latest')
                 }
@@ -36,6 +47,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
+                    // Log in to Docker Hub and push Docker image
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                         docker.image('srijeshk/devops-final-project-frontend:latest').push('latest')
                     }
@@ -44,12 +56,12 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             steps {
-                withKubeConfig([credentialsId: 'kubeconfig-id']) {
+                script {
                     sh '''
-                        kubectl apply -f k8s/deployment.yml
-                        kubectl apply -f k8s/service.yml
-                        kubectl apply -f k8s/configmap.yml
-                        kubectl apply -f k8s/hpa.yml
+                        kubectl apply -f k8s/configmap.yml --validate=false
+                        kubectl apply -f k8s/deployment.yml --validate=false
+                        kubectl apply -f k8s/service.yml --validate=false
+                        kubectl get all
                     '''
                 }
             }
