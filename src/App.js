@@ -4,7 +4,7 @@ import './App.css'; // Import CSS for styling
 const contributors = [
   { name: 'Milan Regmi' },
   { name: 'Sujal Shrestha' },
-  { name: 'Arun Wostiiii' },
+  { name: 'Arun Wosti' },
   { name: 'Srijesh Khanal' },
 ];
 
