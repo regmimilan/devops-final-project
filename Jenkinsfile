@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        // Define environment variables for Docker and Kubernetes
+        DOCKER_IMAGE = 'srijeshk/devops-final-project-frontend:latesl'
+        KUBECONFIG = credentials('9d12d529-58af-49af-8799-e37c0ff380f6') // The ID of the kubeconfig credentials 
+    }
+
     stages {
         stage('Checkout') {
             steps {
