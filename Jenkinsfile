@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define environment variables for Docker and Kubernetes
-        DOCKER_IMAGE = 'srijeshk/devops-final-project-frontend:latesl'
+        DOCKER_IMAGE = 'srijeshk/devops-final-project-frontend:latest'
         KUBECONFIG = credentials('9d12d529-58af-49af-8799-e37c0ff380f6') // The ID of the kubeconfig credentials 
     }
 
@@ -16,36 +16,35 @@ pipeline {
         }
         stage('Set up Node.js') {
             steps {
-                // Set up Node.js and install dependencies
                 script {
-                    // Set up Node.js version 20.x
-                    sh 'nvm install 20'
-                    sh 'nvm use 20'
+                    // Use nvm to install and use Node.js
+                    bat '"C:\\Program Files (x86)\\nvm\\nvm.exe" install 20'
+                    bat '"C:\\Program Files (x86)\\nvm\\nvm.exe" use 20'
                 }
             }
         }
         stage('Install Dependencies') {
             steps {
                 // Install npm dependencies
-                sh 'npm ci'
+                bat 'npm ci'
             }
         }
         stage('Build') {
             steps {
                 // Run the build script
-                sh 'npm run build --if-present'
+                bat 'npm run build --if-present'
             }
         }
         stage('Test') {
             steps {
                 // Run tests
-                sh 'npm test'
+                bat 'npm test'
             }
         }
         stage('Build Docker Image') {
             steps {
-                // Build Docker image
                 script {
+                    // Build Docker image
                     docker.build('srijeshk/devops-final-project-frontend:latest')
                 }
             }
@@ -63,7 +62,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    sh '''
+                    bat '''
                         kubectl apply -f k8s/configmap.yml --validate=false
                         kubectl apply -f k8s/deployment.yml --validate=false
                         kubectl apply -f k8s/service.yml --validate=false
